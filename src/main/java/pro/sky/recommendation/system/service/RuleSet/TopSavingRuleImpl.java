@@ -46,7 +46,7 @@ public class TopSavingRuleImpl implements RecommendationRuleSet {
         }
 
         return Optional.of(new RecommendationDTO(
-                UUID.randomUUID(),
+                UUID.fromString("59efc529-2fff-41af-baff-90ccd7402925"),
                 "Top Saving",
                 "Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
                         "Преимущества «Копилки»:" +

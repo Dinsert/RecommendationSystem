@@ -46,7 +46,7 @@ public class UsualCreditRuleImpl implements RecommendationRuleSet {
         }
 
         return Optional.of(new RecommendationDTO(
-                UUID.randomUUID(),
+                UUID.fromString("ab138afb-f3ba-4a93-b74f-0fcee86d447f"),
                 "Usual Credit",
                 "Откройте мир выгодных кредитов с нами!" +
                         "Ищете способ быстро и без лишних хлопот получить нужную сумму? Тогда наш выгодный кредит — именно то, что вам нужно! Мы предлагаем низкие процентные ставки, гибкие условия и индивидуальный подход к каждому клиенту.\n" +
