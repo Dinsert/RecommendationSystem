@@ -28,4 +28,6 @@ public class TestController {
     public Integer recommendation(@PathVariable UUID userId) {
         return service.test(userId);
     }
+
+
 }
