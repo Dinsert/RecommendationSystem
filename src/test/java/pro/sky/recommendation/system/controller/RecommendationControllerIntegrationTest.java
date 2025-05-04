@@ -61,4 +61,49 @@ class RecommendationControllerIntegrationTest {
     private String url() {
         return "http://localhost:" + port + "/recommendation/{userId}";
     }
+
+    @Test
+        //Valid UserID
+    void getTotalWithdrawalsByProductTypeValid() {
+        UUID userId = UUID.fromString("9d2df4a9-0085-4838-b8af-d8b46659cb62");
+        String productType = "DEBIT";
+        ResponseEntity<Double> response = restTemplate.getForEntity("http://localhost:" + port + "/getTotalWithdrawalsByProductType/{userId}/{productType}", Double.class, userId, productType);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+    }
+
+    @Test
+        //Invalid UserID BAD_REQUEST
+    void getTotalWithdrawalsByProductTypeInvalidProduct() {
+        UUID userId = UUID.fromString("9d2df4a9-0085-4838-b8af-d8b46659cb62");
+        String invalidProductType = "INVALID_PRODUCT";
+        ResponseEntity<Double> response = restTemplate.getForEntity("http://localhost:" + port + "/getTotalWithdrawalsByProductType/{userId}/{productType}", Double.class, userId, invalidProductType);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isEqualTo(0.0);
+    }
+
+    @Test
+        //Empty Recommendation
+    void getTotalDepositsByProductTypeValid() {
+        UUID userId = UUID.fromString("9d2df4a9-0085-4838-b8af-d8b46659cb62");
+        String productType = "DEBIT";
+        ResponseEntity<Double> response = restTemplate.getForEntity("http://localhost:" + port + "/getTotalDepositsByProductType/{userId}/{productType}", Double.class, userId, productType);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+    }
+
+    @Test
+        //Total Withdrawals and Deposits
+    void getTotalDepositsByProductTypeInvalidProduct() {
+        UUID userId = UUID.fromString("9d2df4a9-0085-4838-b8af-d8b46659cb62");
+        String invalidProductType = "INVALID_PRODUCT";
+        ResponseEntity<Double> response = restTemplate.getForEntity("http://localhost:" + port + "/getTotalDepositsByProductType/{userId}/{productType}", Double.class, userId, invalidProductType);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isEqualTo(0.0);
+    }
+
 }
