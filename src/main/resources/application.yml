@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: recommendation-system
+  datasource:
+    url: jdbc:h2:file:./db/transaction
+  sql:
+    init:
+      mode: never
+
+#Пояснение:
+#
+#Заменил application.recommendations-db.url на spring.datasource.url
+#потому что при смене профиля на "test" в интеграционных тестах
+#не происходит подключение к тестовой БД, так как
+#spring.sql.init.mode=never это свойство нужно для того, чтобы предотвратить автоматическое выполнение schema.sql и data.sql
+#в основном приложении, так как они предназначены только для тестов.
