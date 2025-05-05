@@ -1,6 +1,5 @@
 package pro.sky.recommendation.system.DTO;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 

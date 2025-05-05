@@ -15,15 +15,6 @@ public class RecommendationsRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    //тестовый метод проверки работы бд
-    public int getRandomTransactionAmount(UUID user) {
-        Integer result = jdbcTemplate.queryForObject(
-                "SELECT amount FROM transactions t WHERE t.user_id = ? ORDER BY RAND() LIMIT 1",
-                Integer.class,
-                user);
-        return result != null ? result : 0;
-    }
-
     //создаём метод для проверки наличия продукта определённого типа у пользователя
     public boolean hasProductType (UUID userId, String productType){
         Boolean result = jdbcTemplate.queryForObject(
