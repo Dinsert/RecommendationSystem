@@ -2,7 +2,7 @@ package pro.sky.recommendation.system.service.RuleSet;
 
 import org.springframework.stereotype.Component;
 import pro.sky.recommendation.system.DTO.RecommendationDTO;
-import pro.sky.recommendation.system.service.ProductCheckerService;
+import pro.sky.recommendation.system.repository.RecommendationsRepository;
 import pro.sky.recommendation.system.service.RecommendationRuleSet;
 
 import java.util.Optional;
@@ -15,23 +15,22 @@ import java.util.UUID;
 @Component
 public class TopSavingRuleImpl implements RecommendationRuleSet {
 
-    private final ProductCheckerService productChecker;
+    private final RecommendationsRepository recommendationsRepository;
 
-
-    public TopSavingRuleImpl(ProductCheckerService productChecker) {
-        this.productChecker = productChecker;
+    public TopSavingRuleImpl(RecommendationsRepository recommendationsRepository) {
+        this.recommendationsRepository = recommendationsRepository;
     }
 
     @Override
     public Optional<RecommendationDTO> checkRecommendation(UUID userId) {
         // Проверяем наличие DEBIT продукта
-        if (!productChecker.hasProductType(userId, "DEBIT")) {
+        if (!recommendationsRepository.hasProductType(userId, "DEBIT")) {
             return Optional.empty();
         }
 
         // Получаем суммы пополнений
-        Double debitDeposits = productChecker.getTotalDepositsByProductType(userId, "DEBIT");
-        Double savingDeposits = productChecker.getTotalDepositsByProductType(userId, "SAVING");
+        Double debitDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "DEBIT");
+        Double savingDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "SAVING");
 
         // Проверяем условие: DEBIT >=50000 или SAVING >=50000
         if ((debitDeposits == null || debitDeposits < 50000) &&
@@ -40,7 +39,7 @@ public class TopSavingRuleImpl implements RecommendationRuleSet {
         }
 
         // Проверяем DEBIT deposits > DEBIT withdrawals
-        Double debitWithdrawals = productChecker.getTotalWithdrawalsByProductType(userId, "DEBIT");
+        Double debitWithdrawals = recommendationsRepository.getTotalWithdrawalsByProductType(userId, "DEBIT");
         if (debitDeposits == null || debitWithdrawals == null || debitDeposits <= debitWithdrawals) {
             return Optional.empty();
         }

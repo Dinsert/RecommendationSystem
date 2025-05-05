@@ -1,15 +1,13 @@
 package pro.sky.recommendation.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import pro.sky.recommendation.system.DTO.RecommendationDTO;
 import pro.sky.recommendation.system.DTO.RecommendationResponse;
-import pro.sky.recommendation.system.repository.RecommendationsRepository;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service

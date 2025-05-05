@@ -3,7 +3,7 @@ package pro.sky.recommendation.system.DTO;
 import java.util.List;
 import java.util.UUID;
 
-public  class RecommendationResponse {
+public class RecommendationResponse {
     private UUID userId;
     private List<RecommendationDTO> recommendations;
 
@@ -12,14 +12,18 @@ public  class RecommendationResponse {
         this.recommendations = recommendations;
     }
 
-
     public UUID getUserId() {
-        return userId; }
+        return userId;
+    }
 
     public void setUserId(UUID userId) {
-        this.userId = userId; }
+        this.userId = userId;
+    }
 
-    public List<RecommendationDTO> getRecommendations() { return recommendations; }
+    public List<RecommendationDTO> getRecommendations() {
+        return recommendations;
+    }
+
     public void setRecommendations(List<RecommendationDTO> recommendations) {
         this.recommendations = recommendations;
     }
