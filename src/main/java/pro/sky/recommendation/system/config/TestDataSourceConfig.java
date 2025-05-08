@@ -2,28 +2,31 @@ package pro.sky.recommendation.system.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
 @Configuration
-public class RecommendationsDataSourceConfiguration {
+@Profile("test")
+public class TestDataSourceConfig {
+
+    @Primary
     @Bean(name = "recommendationsDataSource")
-    public DataSource recommendationsDataSource(@Value("${spring.datasource.url}") String recommendationsUrl) {
+    public DataSource recommendationsDataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl(recommendationsUrl);
+        dataSource.setJdbcUrl("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
         dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setReadOnly(true);
+        dataSource.setUsername("sa");
+        dataSource.setPassword("");
         return dataSource;
     }
 
     @Bean(name = "recommendationsJdbcTemplate")
-    public JdbcTemplate recommendationsJdbcTemplate(
-            @Qualifier("recommendationsDataSource") DataSource dataSource
-    ) {
+    public JdbcTemplate recommendationsJdbcTemplate(@Qualifier("recommendationsDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 }

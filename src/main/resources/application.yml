@@ -3,9 +3,24 @@ spring:
     name: recommendation-system
   datasource:
     url: jdbc:h2:file:./db/transaction
+    driverClassName: org.h2.Driver
+  second-datasource:
+    url: jdbc:postgresql://localhost:5432/rules_db
+    driverClassName: org.postgresql.Driver
+    username: username
+    password: password
   sql:
     init:
       mode: never
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:liquibase/changelog-master.yml
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/rules_db
+    user: username
+    password: password
 
 #Пояснение:
 #

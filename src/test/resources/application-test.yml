@@ -8,6 +8,10 @@ spring:
       data-locations: classpath:data.sql
   jpa:
     defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: false
 
 #Пояснение:
 #
