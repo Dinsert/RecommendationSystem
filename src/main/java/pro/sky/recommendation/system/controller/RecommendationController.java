@@ -26,4 +26,5 @@ public class RecommendationController {
         RecommendationResponse response = recommendationService.getRecommendationsForUser(userId);
         return ResponseEntity.ok(response);
     }
+
 }

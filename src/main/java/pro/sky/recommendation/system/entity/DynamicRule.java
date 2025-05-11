@@ -51,6 +51,7 @@ public class DynamicRule {
     public List<RuleQuery> getRule() {
         return rule; }
     public void setRule(List<RuleQuery> rule) {
+
         this.rule = rule; }
 }
 

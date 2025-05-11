@@ -31,4 +31,5 @@ public class RuleQuery {
     public void setArguments(List<String> arguments) { this.arguments = arguments; }
     public boolean isNegate() { return negate; }
     public void setNegate(boolean negate) { this.negate = negate; }
+
 }

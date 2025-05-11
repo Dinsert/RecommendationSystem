@@ -28,3 +28,4 @@ public class RecommendationResponse {
         this.recommendations = recommendations;
     }
 }
+

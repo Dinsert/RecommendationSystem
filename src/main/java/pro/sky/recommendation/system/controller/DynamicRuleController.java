@@ -37,4 +37,5 @@ public class DynamicRuleController {
         dynamicRuleService.deleteRule(id);
         return ResponseEntity.noContent().build();
     }
+
 }

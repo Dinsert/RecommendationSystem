@@ -2,6 +2,7 @@ package pro.sky.recommendation.system.service;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import pro.sky.recommendation.system.DTO.RecommendationDTO;
@@ -21,7 +22,7 @@ public class DynamicRuleService {
     private final Cache<CacheKey, Boolean> activeUserCache;
     private final Cache<CacheKey, Double> sumCache;
 
-    public DynamicRuleService(DynamicRuleRepository repository, JdbcTemplate jdbcTemplate) {
+    public DynamicRuleService(DynamicRuleRepository repository,@Qualifier("recommendationsJdbcTemplate") JdbcTemplate jdbcTemplate) {
         this.repository = repository;
         this.jdbcTemplate = jdbcTemplate;
         this.userOfCache = Caffeine.newBuilder().build();
@@ -56,6 +57,7 @@ public class DynamicRuleService {
                 rule.getProductText()
         ));
     }
+
 
     private boolean checkRuleQuery(UUID userId, RuleQuery query) {
         switch (query.getQuery()) {
