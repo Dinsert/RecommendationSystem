@@ -51,5 +51,6 @@ public class RecommendationsRepository {
                 productType);
         return result;
     }
+
 }
 
