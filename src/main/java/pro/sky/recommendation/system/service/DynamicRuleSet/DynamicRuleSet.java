@@ -1,4 +1,4 @@
-package pro.sky.recommendation.system.service;
+package pro.sky.recommendation.system.service.DynamicRuleSet;
 
 import org.springframework.stereotype.Component;
 import pro.sky.recommendation.system.DTO.RecommendationDTO;
@@ -6,6 +6,7 @@ import pro.sky.recommendation.system.entity.DynamicRule;
 import pro.sky.recommendation.system.entity.RuleQuery;
 import pro.sky.recommendation.system.repository.DynamicRuleRepository;
 import pro.sky.recommendation.system.repository.RecommendationsRepository;
+import pro.sky.recommendation.system.service.RecommendationRuleSet;
 
 import java.util.List;
 import java.util.Optional;
