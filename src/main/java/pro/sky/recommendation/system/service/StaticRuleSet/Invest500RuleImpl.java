@@ -1,4 +1,4 @@
-package pro.sky.recommendation.system.service.RuleSet;
+package pro.sky.recommendation.system.service.StaticRuleSet;
 
 import org.springframework.stereotype.Component;
 import pro.sky.recommendation.system.DTO.RecommendationDTO;
