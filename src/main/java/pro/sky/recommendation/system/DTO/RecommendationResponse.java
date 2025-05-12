@@ -24,7 +24,4 @@ public class RecommendationResponse {
         return recommendations;
     }
 
-    public void setRecommendations(List<RecommendationDTO> recommendations) {
-        this.recommendations = recommendations;
-    }
 }
