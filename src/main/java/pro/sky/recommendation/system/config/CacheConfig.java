@@ -10,6 +10,6 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("userOfCache", "activeUserCache", "sumCache");
+        return new ConcurrentMapCacheManager("userOfCache", "activeUserCache", "sumCache", "userInfoCache");
     }
 }
