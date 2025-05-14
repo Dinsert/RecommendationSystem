@@ -21,6 +21,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/rules_db
     user: username
     password: password
+telegram:
+  bot:
+    username: RecommendationTeam3Bot
+    token: 8039753322:AAFFl6Xhppq0s5M4ccVQ5HQWqH0uj9vegEw
 
 #Пояснение:
 #
