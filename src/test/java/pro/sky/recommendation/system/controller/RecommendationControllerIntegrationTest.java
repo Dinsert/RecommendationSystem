@@ -1,5 +1,6 @@
 package pro.sky.recommendation.system.controller;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -61,4 +62,57 @@ class RecommendationControllerIntegrationTest {
     private String url() {
         return "http://localhost:" + port + "/recommendation/{userId}";
     }
+
+    @Test
+        //Valid UserID
+    void getTotalWithdrawalsByProductTypeValid() {
+        UUID userId = UUID.fromString("9d2df4a9-0085-4838-b8af-d8b46659cb62");
+        String productType = "DEBIT";
+        ResponseEntity<WithdrawalResponse> response = restTemplate.getForEntity(url(), WithdrawalResponse.class, userId, productType);
+        Assertions.assertNotNull(response.getBody());
+        Double totalWithdrawals = response.getBody().getValue();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+    }
+
+    @Test
+        //Invalid UserID BAD_REQUEST
+    void getTotalWithdrawalsByProductTypeInvalidProduct() {
+        UUID userId = UUID.fromString("9d2df4a9-0085-4838-b8af-d8b46659cb62");
+        String invalidProductType = "INVALID_PRODUCT";
+        ResponseEntity<WithdrawalResponse> response = restTemplate.getForEntity(url(), WithdrawalResponse.class, userId, invalidProductType);
+        Assertions.assertNotNull(response.getBody());
+        Double totalWithdrawals = response.getBody().getValue();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+    }
+
+    @Test
+        //Empty Recommendation
+    void getTotalDepositsByProductTypeValid() {
+        UUID userId = UUID.fromString("9d2df4a9-0085-4838-b8af-d8b46659cb62");
+        String productType = "DEBIT";
+        ResponseEntity<WithdrawalResponse> response = restTemplate.getForEntity(url(), WithdrawalResponse.class, userId, productType);
+        Assertions.assertNotNull(response.getBody());
+        Double totalWithdrawals = response.getBody().getValue();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+    }
+
+    @Test
+        //Total Withdrawals and Deposits
+    void getTotalDepositsByProductTypeInvalidProduct() {
+        UUID userId = UUID.fromString("9d2df4a9-0085-4838-b8af-d8b46659cb62");
+        String invalidProductType = "INVALID_PRODUCT";
+        ResponseEntity<WithdrawalResponse> response = restTemplate.getForEntity(url(), WithdrawalResponse.class, userId, invalidProductType);
+        Assertions.assertNotNull(response.getBody());
+        Double totalWithdrawals = response.getBody().getValue();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+    }
+
 }
