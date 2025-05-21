@@ -38,9 +38,14 @@ psql -U username -c "CREATE DATABASE rules_db;"
 ```
 4. Запустите приложение, задав переменные среды:
 ```bash
-SPRING_SECOND_DATASOURCE_URL=jdbc:postgresql://localhost:5432/rules_db \ SPRING_SECOND_DATASOURCE_USERNAME=username \ SPRING_SECOND_DATASOURCE_PASSWORD=password \ SPRING_LIQUIBASE_URL=jdbc:postgresql://localhost:5432/rules_db \ SPRING_LIQUIBASE_USER=username \ 
+SPRING_SECOND_DATASOURCE_URL=jdbc:postgresql://localhost:5432/rules_db \ 
+SPRING_SECOND_DATASOURCE_USERNAME=username \ 
+SPRING_SECOND_DATASOURCE_PASSWORD=password \ 
+SPRING_LIQUIBASE_URL=jdbc:postgresql://localhost:5432/rules_db \ 
+SPRING_LIQUIBASE_USER=username \ 
 SPRING_LIQUIBASE_PASSWORD=password \ 
-TELEGRAM_BOT_USERNAME=RecommendationTeam3Bot \ TELEGRAM_BOT_TOKEN=8039753322:AAFFl6Xhppq0s5M4ccVQ5HQWqH0uj9vegEw \ 
+TELEGRAM_BOT_USERNAME=RecommendationTeam3Bot \ 
+TELEGRAM_BOT_TOKEN=8039753322:AAFFl6Xhppq0s5M4ccVQ5HQWqH0uj9vegEw \ 
 java -jar target/recommendation-system-1.0.0.jar
 ```
 
