@@ -3,7 +3,12 @@ package pro.sky.recommendation.system.DTO;
 import java.util.Objects;
 import java.util.UUID;
 
-//DTO для нашей рекомендации.
+/**
+ * DTO для передачи информации о рекомендации.
+ *
+ * @author vkozhevatov
+ * Содержит основные данные о рекомендуемом продукте.
+ */
 public class RecommendationDTO {
 
     private UUID id;
@@ -13,12 +18,24 @@ public class RecommendationDTO {
     public RecommendationDTO() {
     }
 
+    /**
+     * Конструктор DTO.
+     *
+     * @param id   идентификатор продукта
+     * @param name название продукта
+     * @param text описание рекомендации
+     */
     public RecommendationDTO(UUID id, String name, String text) {
         this.id = id;
         this.name = name;
         this.text = text;
     }
 
+    /**
+     * возвращает id продукта
+     *
+     * @return id
+     */
     public UUID getId() {
         return id;
     }
@@ -27,6 +44,11 @@ public class RecommendationDTO {
         this.id = id;
     }
 
+    /**
+     * возвращает текст рекомендации
+     *
+     * @return text
+     */
     public String getText() {
         return text;
     }
@@ -35,6 +57,11 @@ public class RecommendationDTO {
         this.text = text;
     }
 
+    /**
+     * возвращает имя продукта
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }

@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Реализация набора правил для динамических рекомендаций.
+ * Проверяет условия динамических правил и формирует рекомендации.
+ */
 @Component
 public class DynamicRuleSet implements RecommendationRuleSet {
 
@@ -21,6 +25,13 @@ public class DynamicRuleSet implements RecommendationRuleSet {
     private final RecommendationsRepository recommendationsRepository;
     private final RuleStatsRepository ruleStatsRepository;
 
+    /**
+     * Конструктор набора правил.
+     *
+     * @param dynamicRuleRepository репозиторий динамических правил
+     * @param recommendationsRepository репозиторий рекомендаций
+     * @param ruleStatsRepository репозиторий статистики правил
+     */
     public DynamicRuleSet(DynamicRuleRepository dynamicRuleRepository,
                           RecommendationsRepository recommendationsRepository,
                           RuleStatsRepository ruleStatsRepository) {
@@ -29,6 +40,13 @@ public class DynamicRuleSet implements RecommendationRuleSet {
         this.ruleStatsRepository = ruleStatsRepository;
     }
 
+    /**
+     * Проверяет все динамические правила для пользователя.
+     *
+     * @param userId идентификатор пользователя
+     * @return Optional с рекомендацией, если найдено подходящее правило,
+     *         иначе Optional.empty()
+     */
     @Override
     public Optional<RecommendationDTO> checkRecommendation(UUID userId) {
         return dynamicRuleRepository.findAll().stream()
@@ -38,6 +56,14 @@ public class DynamicRuleSet implements RecommendationRuleSet {
                 .orElse(Optional.empty());
     }
 
+    /**
+     * Проверяет правило для конкретного пользователя.
+     *
+     * @param userId идентификатор пользователя
+     * @param rule правило для проверки
+     * @return Optional с рекомендацией, если правило применимо,
+     *         иначе Optional.empty()
+     */
     Optional<RecommendationDTO> checkRuleForUser(UUID userId, DynamicRule rule) {
         boolean allConditionsMet = rule.getRule().stream()
                 .allMatch(query -> checkCondition(userId, query));
@@ -55,6 +81,12 @@ public class DynamicRuleSet implements RecommendationRuleSet {
         return Optional.empty();
     }
 
+    /**
+     * Проверяет условие для конкретного пользователя.
+     * @param userId идентификатор пользователя
+     * @param query
+     * @return
+     */
     private boolean checkCondition(UUID userId, RuleQuery query) {
         boolean result = switch (query.getQuery()) {
             case "USER_OF" -> recommendationsRepository.hasProductType(userId, query.getArguments().get(0));
@@ -67,6 +99,12 @@ public class DynamicRuleSet implements RecommendationRuleSet {
         return result ^ query.isNegate();
     }
 
+    /**
+     * Проверяет сумму транзакций для конкретного пользователя.
+     * @param userId идентификатор пользователя
+     * @param query
+     * @return
+     */
     private boolean checkTransactionSum(UUID userId, RuleQuery query) {
         List<String> args = query.getArguments();
         double sum = args.get(1).equals("DEPOSIT")
@@ -85,6 +123,12 @@ public class DynamicRuleSet implements RecommendationRuleSet {
         };
     }
 
+    /**
+     * Проверяет сравнение сумм депозитов и снятий для конкретного пользователя.
+     * @param userId идентификатор пользователя
+     * @param query
+     * @return
+     */
     private boolean checkDepositWithdrawCompare(UUID userId, RuleQuery query) {
         List<String> args = query.getArguments();
         double depositSum = recommendationsRepository.getTotalDepositsByProductType(userId, args.get(0));

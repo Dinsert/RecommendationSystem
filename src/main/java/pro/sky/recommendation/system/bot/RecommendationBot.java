@@ -13,11 +13,21 @@ import pro.sky.recommendation.system.DTO.UserInfo;
 import pro.sky.recommendation.system.exception.UserNotFoundException;
 import pro.sky.recommendation.system.service.RecommendationService;
 
+/**
+ * Бот для Telegram, который предоставляет рекомендации пользователям.
+ */
 @Component
 public class RecommendationBot extends TelegramLongPollingBot {
 
     private static final Logger logger = LoggerFactory.getLogger(RecommendationBot.class);
 
+    /**
+     * Конструктор бота рекомендаций.
+     *
+     * @param recommendationService сервис для получения рекомендаций
+     * @param botUsername имя бота (из конфигурации)
+     * @param botToken токен бота (из конфигурации)
+     */
     private final RecommendationService recommendationService;
     private final String botUsername;
     private final String botToken;
@@ -31,18 +41,34 @@ public class RecommendationBot extends TelegramLongPollingBot {
         logger.info("RecommendationBot initialized with username: {} and token: {}", botUsername, botToken);
     }
 
+    /**
+     * Возвращает имя бота.
+     *
+     * @return имя бота, указанное при конфигурации
+     */
     @Override
     public String getBotUsername() {
         logger.debug("Returning bot username: {}", botUsername);
         return botUsername;
     }
 
+    /**
+     * Возвращает токен бота.
+     *
+     * @return токен бота, указанный при конфигурации
+     */
     @Override
     public String getBotToken() {
         logger.debug("Returning bot token: {}", botToken);
         return botToken;
     }
 
+    /**
+     * Обрабатывает входящие обновления от Telegram API.
+     *
+     * @param update объект Update от Telegram API, содержащий информацию о сообщении
+     * @throws IllegalStateException если возникла ошибка при обработке сообщения
+     */
     @Override
     public void onUpdateReceived(Update update) {
         logger.info("Received update: {}", update);
