@@ -9,10 +9,12 @@ import pro.sky.recommendation.system.service.RecommendationRuleSet;
 import java.util.Optional;
 import java.util.UUID;
 
-//INVEST 500
-//Пользователь использует как минимум один продукт с типом DEBIT.
-//Пользователь не использует продукты с типом INVEST.
-//Сумма пополнений продуктов с типом SAVING больше 1000 ₽.
+/**
+ * INVEST 500
+ * Пользователь использует как минимум один продукт с типом DEBIT.
+ * Пользователь не использует продукты с типом INVEST.
+ * Сумма пополнений продуктов с типом SAVING больше 1000 ₽.
+ */
 
 @Component
 public class Invest500RuleImpl implements RecommendationRuleSet {
@@ -25,6 +27,12 @@ public class Invest500RuleImpl implements RecommendationRuleSet {
     }
 
 
+    /**
+     *
+     * @param userId идентификатор пользователя
+     * проверяем условия правила и если они выполнены наличия DEBIT, возвращаем рекомендацию
+     * @return
+     */
     @Override
     public Optional<RecommendationDTO> checkRecommendation(UUID userId) {
         // Проверяем наличие DEBIT продукта
@@ -32,12 +40,17 @@ public class Invest500RuleImpl implements RecommendationRuleSet {
             return Optional.empty();
         }
 
-        // Проверяем отсутствие INVEST продуктов
+        /**
+         * Проверяем отсутствие INVEST продуктов
+         */
+
         if (recommendationsRepository.hasProductType(userId, "INVEST")) {
             return Optional.empty();
         }
 
-        // Проверяем суммарные пополнения SAVING > 1000
+        /**
+         * Проверяем суммарные пополнения SAVING > 1000
+         */
         Double savingDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "SAVING");
         if (savingDeposits == null || savingDeposits <= 1000) {
             return Optional.empty();

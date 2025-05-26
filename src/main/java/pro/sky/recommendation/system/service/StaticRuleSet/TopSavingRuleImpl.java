@@ -8,10 +8,12 @@ import pro.sky.recommendation.system.service.RecommendationRuleSet;
 import java.util.Optional;
 import java.util.UUID;
 
-//Top Saving
-//Пользователь использует как минимум один продукт с типом DEBIT.
-//Сумма пополнений по всем продуктам типа DEBIT больше или равна 50 000 ₽ ИЛИ Сумма пополнений по всем продуктам типа SAVING больше или равна 50 000 ₽.
-//Сумма пополнений по всем продуктам типа DEBIT больше, чем сумма трат по всем продуктам типа DEBIT.
+/**
+ * Top Saving
+ * Пользователь использует как минимум один продукт с типом DEBIT.
+ * Сумма пополнений по всем продуктам типа DEBIT больше или равна 50 000 ₽ ИЛИ Сумма пополнений по всем продуктам типа SAVING больше или равна 50 000 ₽.
+ * Сумма пополнений по всем продуктам типа DEBIT больше, чем сумма трат по всем продуктам типа DEBIT.
+ */
 @Component
 public class TopSavingRuleImpl implements RecommendationRuleSet {
 
@@ -21,24 +23,34 @@ public class TopSavingRuleImpl implements RecommendationRuleSet {
         this.recommendationsRepository = recommendationsRepository;
     }
 
+    /**
+     * ПРоверка рекомендации DEBIT пользователя
+      * @param userId идентификатор пользователя
+     * @return
+     */
     @Override
     public Optional<RecommendationDTO> checkRecommendation(UUID userId) {
-        // Проверяем наличие DEBIT продукта
         if (!recommendationsRepository.hasProductType(userId, "DEBIT")) {
             return Optional.empty();
         }
 
-        // Получаем суммы пополнений
+        /**
+         * Получаем сумму пополнений по продуктам типа DEBIT и SAVING
+         */
         Double debitDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "DEBIT");
         Double savingDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "SAVING");
 
-        // Проверяем условие: DEBIT >=50000 или SAVING >=50000
+        /**
+         * Проверяем условия для рекомендации
+         */
         if ((debitDeposits == null || debitDeposits < 50000) &&
                 (savingDeposits == null || savingDeposits < 50000)) {
             return Optional.empty();
         }
 
-        // Проверяем DEBIT deposits > DEBIT withdrawals
+        /**
+         * Проверяем условие для рекомендации
+         */
         Double debitWithdrawals = recommendationsRepository.getTotalWithdrawalsByProductType(userId, "DEBIT");
         if (debitDeposits == null || debitWithdrawals == null || debitDeposits <= debitWithdrawals) {
             return Optional.empty();

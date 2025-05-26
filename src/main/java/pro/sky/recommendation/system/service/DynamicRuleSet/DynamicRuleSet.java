@@ -131,6 +131,10 @@ public class DynamicRuleSet implements RecommendationRuleSet {
      */
     private boolean checkDepositWithdrawCompare(UUID userId, RuleQuery query) {
         List<String> args = query.getArguments();
+        /**
+         * получаем сумму депозитов и снятий для продукта пользователя
+         * @param userId
+         */
         double depositSum = recommendationsRepository.getTotalDepositsByProductType(userId, args.get(0));
         double withdrawSum = recommendationsRepository.getTotalWithdrawalsByProductType(userId, args.get(0));
 
