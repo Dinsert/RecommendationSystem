@@ -81,6 +81,14 @@ public class RecommendationsRepository {
         );
     }
 
+    /**
+     * Подсчитывает количество транзакций пользователя по типу продукта.
+     * Результат кэшируется в "activeUserCache".
+     *
+     * @param userId идентификатор пользователя (не может быть null)
+     * @param productType тип продукта (не может быть null или пустым)
+     * @return количество транзакций (всегда >= 0)
+     */
     @Cacheable(value = "activeUserCache", key = "#userId + ':' + #productType")
     public int getTransactionCount(UUID userId, String productType) {
         return jdbcTemplate.queryForObject(
@@ -93,6 +101,12 @@ public class RecommendationsRepository {
         );
     }
 
+    /**
+     * Получает рекомендации для пользователя по его имени.
+     *
+     * @param username имя пользователя для поиска (не может быть null или пустым)
+     * @return информация о пользователе и список рекомендаций
+     */
     @Cacheable(value = "userInfoCache", key = "#username")
     public List<Object[]> getRecommendationsByUsername(String username) {
         String sql = "SELECT id, first_name, last_name FROM users WHERE username = ?";

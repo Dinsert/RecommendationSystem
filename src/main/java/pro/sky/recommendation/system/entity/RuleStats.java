@@ -43,7 +43,10 @@ public class RuleStats {
         this.count = count;
     }
 
-    // Геттеры и сеттеры
+    /**
+     * получение id правила
+     * @return
+     */
     public UUID getRuleId() {
         return ruleId;
     }
@@ -51,11 +54,18 @@ public class RuleStats {
     public void setRuleId(UUID ruleId) {
         this.ruleId = ruleId;
     }
-
+    /**
+     * получение количества обращений к правилу
+     * @return
+     */
     public Long getCount() {
         return count;
     }
 
+    /**
+     * изменение количества обращений к правилу
+     * @return
+     */
     public void setCount(Long count) {
         this.count = count;
     }

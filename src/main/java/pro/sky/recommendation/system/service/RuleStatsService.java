@@ -29,7 +29,7 @@ public class RuleStatsService {
     /**
      * Конструктор для инжектинга зависимых репозиториев.
      *
-     * @param ruleStatsRepository репозиторий статистики правил
+     * @param ruleStatsRepository   репозиторий статистики правил
      * @param dynamicRuleRepository репозиторий динамических правил
      */
     public RuleStatsService(RuleStatsRepository ruleStatsRepository, DynamicRuleRepository dynamicRuleRepository) {

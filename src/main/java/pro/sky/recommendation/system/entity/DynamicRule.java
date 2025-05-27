@@ -54,23 +54,42 @@ public class DynamicRule {
     private List<RuleQuery> rule;
 
     public UUID getId() {
-        return id; }
+        return id;
+    }
+
     public void setId(UUID id) {
-        this.id = id; }
+        this.id = id;
+    }
+
     public String getProductName() {
-        return productName; }
+        return productName;
+    }
+
     public void setProductName(String productName) {
-        this.productName = productName; }
+        this.productName = productName;
+    }
+
     public UUID getProductId() {
-        return productId; }
+        return productId;
+    }
+
     public void setProductId(UUID productId) {
-        this.productId = productId; }
+        this.productId = productId;
+    }
+
     public String getProductText() {
-        return productText; }
+        return productText;
+    }
+
     public void setProductText(String productText) {
-        this.productText = productText; }
+        this.productText = productText;
+    }
+
     public List<RuleQuery> getRule() {
-        return rule; }
+        return rule;
+    }
+
     public void setRule(List<RuleQuery> rule) {
-        this.rule = rule; }
+        this.rule = rule;
+    }
 }

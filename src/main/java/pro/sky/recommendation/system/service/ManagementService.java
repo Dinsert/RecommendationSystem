@@ -31,9 +31,9 @@ public class ManagementService {
     /**
      * Конструктор для инициализации полей сервиса необходимыми компонентами.
      *
-     * @param cacheManager      менеджер кэш-памяти
-     * @param buildProperties   свойства билда
-     * @param serviceName       имя текущего приложения
+     * @param cacheManager    менеджер кэш-памяти
+     * @param buildProperties свойства билда
+     * @param serviceName     имя текущего приложения
      */
     public ManagementService(CacheManager cacheManager,
                              BuildProperties buildProperties,

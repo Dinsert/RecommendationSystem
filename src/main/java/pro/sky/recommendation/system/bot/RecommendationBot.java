@@ -20,6 +20,9 @@ import pro.sky.recommendation.system.service.RecommendationService;
 public class RecommendationBot extends TelegramLongPollingBot {
 
     private static final Logger logger = LoggerFactory.getLogger(RecommendationBot.class);
+    private final RecommendationService recommendationService;
+    private final String botUsername;
+    private final String botToken;
 
     /**
      * Конструктор бота рекомендаций.
@@ -28,10 +31,6 @@ public class RecommendationBot extends TelegramLongPollingBot {
      * @param botUsername имя бота (из конфигурации)
      * @param botToken токен бота (из конфигурации)
      */
-    private final RecommendationService recommendationService;
-    private final String botUsername;
-    private final String botToken;
-
     public RecommendationBot(RecommendationService recommendationService,
                              @Value("${telegram.bot.username}") String botUsername,
                              @Value("${telegram.bot.token}") String botToken) {
@@ -65,9 +64,14 @@ public class RecommendationBot extends TelegramLongPollingBot {
 
     /**
      * Обрабатывает входящие обновления от Telegram API.
+     * Выполняет обработку команд, отправляемых пользователями.
+     * Поддерживаемые команды:
+     *   - "/start": приветствие и инструкция по использованию бота.
+     *   - "/recommend <username>": выводит персональные рекомендации для указанного пользователя.
      *
-     * @param update объект Update от Telegram API, содержащий информацию о сообщении
-     * @throws IllegalStateException если возникла ошибка при обработке сообщения
+     * Логика обработки сообщений включает проверку валидности входящих данных и формирование ответных сообщений.
+     *
+     * @param update объект Update, содержащий информацию о сообщении или событии от Telegram API
      */
     @Override
     public void onUpdateReceived(Update update) {

@@ -1,6 +1,7 @@
 package pro.sky.recommendation.system.entity;
 
 import jakarta.persistence.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -42,13 +43,36 @@ public class RuleQuery {
     @Column(name = "negate", nullable = false)
     private boolean negate;
 
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
-    public String getQuery() { return query; }
-    public void setQuery(String query) { this.query = query; }
-    public List<String> getArguments() { return arguments; }
-    public void setArguments(List<String> arguments) { this.arguments = arguments; }
-    public boolean isNegate() { return negate; }
-    public void setNegate(boolean negate) { this.negate = negate; }
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public List<String> getArguments() {
+        return arguments;
+    }
+
+    public void setArguments(List<String> arguments) {
+        this.arguments = arguments;
+    }
+
+    public boolean isNegate() {
+        return negate;
+    }
+
+    public void setNegate(boolean negate) {
+        this.negate = negate;
+    }
 
 }

@@ -33,7 +33,7 @@ public class RecommendationService {
     /**
      * Конструктор для установки экземпляров репозитория и набора правил.
      *
-     * @param recommendationRules коллекция правил для вычисления рекомендаций
+     * @param recommendationRules       коллекция правил для вычисления рекомендаций
      * @param recommendationsRepository репозиторий для работы с базой данных рекомендаций
      */
     public RecommendationService(List<RecommendationRuleSet> recommendationRules, RecommendationsRepository recommendationsRepository) {
@@ -43,7 +43,7 @@ public class RecommendationService {
 
     /**
      * Получить список рекомендаций для указанного пользователя.
-     *
+     * <p>
      * Применяются все доступные правила, и собираются соответствующие рекомендации.
      *
      * @param userId уникальный идентификатор пользователя
@@ -61,7 +61,7 @@ public class RecommendationService {
 
     /**
      * Получить расширённую информацию о пользователе вместе с рекомендациями.
-     *
+     * <p>
      * Производится проверка наличия пользователя по его имени, выполняется запрос в базу данных,
      * а затем формируются рекомендации с использованием метода {@link #getRecommendationsForUser(UUID)}.
      *

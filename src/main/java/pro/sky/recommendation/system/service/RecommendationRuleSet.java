@@ -15,7 +15,7 @@ public interface RecommendationRuleSet {
      *
      * @param userId идентификатор пользователя
      * @return Optional с рекомендацией, если условия выполнены,
-     *         иначе Optional.empty()
+     * иначе Optional.empty()
      */
-    Optional<RecommendationDTO> checkRecommendation (UUID userId);
+    Optional<RecommendationDTO> checkRecommendation(UUID userId);
 }

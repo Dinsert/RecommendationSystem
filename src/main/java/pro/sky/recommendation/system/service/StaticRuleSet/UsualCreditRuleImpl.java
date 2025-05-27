@@ -26,6 +26,7 @@ public class UsualCreditRuleImpl implements RecommendationRuleSet {
 
     /**
      * Проверяем отсутствие CREDIT продуктов
+     *
      * @param userId идентификатор пользователя
      * @return
      */

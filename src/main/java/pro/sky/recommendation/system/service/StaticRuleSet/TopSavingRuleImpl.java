@@ -25,7 +25,8 @@ public class TopSavingRuleImpl implements RecommendationRuleSet {
 
     /**
      * ПРоверка рекомендации DEBIT пользователя
-      * @param userId идентификатор пользователя
+     *
+     * @param userId идентификатор пользователя
      * @return
      */
     @Override

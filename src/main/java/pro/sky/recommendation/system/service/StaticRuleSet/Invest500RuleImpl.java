@@ -15,17 +15,18 @@ import java.util.UUID;
  * Пользователь не использует продукты с типом INVEST.
  * Сумма пополнений продуктов с типом SAVING больше 1000 ₽.
  */
-
 @Component
 public class Invest500RuleImpl implements RecommendationRuleSet {
 
     private final RecommendationsRepository recommendationsRepository;
 
-
+    /**
+     * Конструктор для внедрения зависимостей.
+     * @param recommendationsRepository
+     */
     public Invest500RuleImpl(RecommendationsRepository recommendationsRepository) {
         this.recommendationsRepository = recommendationsRepository;
     }
-
 
     /**
      *
