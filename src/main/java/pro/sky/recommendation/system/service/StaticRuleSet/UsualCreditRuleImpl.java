@@ -8,11 +8,12 @@ import pro.sky.recommendation.system.service.RecommendationRuleSet;
 import java.util.Optional;
 import java.util.UUID;
 
-
-//Простой кредит
-//Пользователь не использует продукты с типом CREDIT.
-//Сумма пополнений по всем продуктам типа DEBIT больше, чем сумма трат по всем продуктам типа DEBIT.
-//Сумма трат по всем продуктам типа DEBIT больше, чем 100 000 ₽.
+/**
+ * Простой кредит
+ * Пользователь не использует продукты с типом CREDIT.
+ * cумма пополнений по всем продуктам типа DEBIT больше, чем сумма трат по всем продуктам типа DEBIT.
+ * Сумма трат по всем продуктам типа DEBIT больше, чем 100 000 ₽.
+ */
 
 @Component
 public class UsualCreditRuleImpl implements RecommendationRuleSet {
@@ -23,23 +24,34 @@ public class UsualCreditRuleImpl implements RecommendationRuleSet {
         this.recommendationsRepository = recommendationsRepository;
     }
 
+    /**
+     * Проверяем отсутствие CREDIT продуктов
+     *
+     * @param userId идентификатор пользователя
+     * @return
+     */
     @Override
     public Optional<RecommendationDTO> checkRecommendation(UUID userId) {
-        // Проверяем отсутствие CREDIT продуктов
         if (recommendationsRepository.hasProductType(userId, "CREDIT")) {
             return Optional.empty();
         }
 
-        // Получаем суммы по DEBIT продуктам
+        /**
+         * Получаем суммы по DEBIT продуктам
+         */
         Double debitDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "DEBIT");
         Double debitWithdrawals = recommendationsRepository.getTotalWithdrawalsByProductType(userId, "DEBIT");
 
-        // Проверяем DEBIT deposits > DEBIT withdrawals
+        /**
+         * Проверяем DEBIT deposits > DEBIT withdrawals
+         */
         if (debitDeposits == null || debitWithdrawals == null || debitDeposits <= debitWithdrawals) {
             return Optional.empty();
         }
 
-        // Проверяем DEBIT withdrawals > 100000
+        /**
+         * // Проверяем DEBIT withdrawals > 100000
+         */
         if (debitWithdrawals <= 100000) {
             return Optional.empty();
         }

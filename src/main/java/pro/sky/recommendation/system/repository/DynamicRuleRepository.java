@@ -6,6 +6,9 @@ import pro.sky.recommendation.system.entity.DynamicRule;
 
 import java.util.UUID;
 
+/**
+ * Репозиторий для работы с динамическими правилами рекомендаций.
+ */
 @Repository
 public interface DynamicRuleRepository extends JpaRepository<DynamicRule, UUID> {
 }
