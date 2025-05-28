@@ -24,10 +24,10 @@ public class TopSavingRuleImpl implements RecommendationRuleSet {
     }
 
     /**
-     * ПРоверка рекомендации DEBIT пользователя
+     * Проверка рекомендации DEBIT пользователя
      *
      * @param userId идентификатор пользователя
-     * @return
+     * @return Optional со статической рекомендацией или пустой Optional
      */
     @Override
     public Optional<RecommendationDTO> checkRecommendation(UUID userId) {
@@ -35,23 +35,15 @@ public class TopSavingRuleImpl implements RecommendationRuleSet {
             return Optional.empty();
         }
 
-        /**
-         * Получаем сумму пополнений по продуктам типа DEBIT и SAVING
-         */
         Double debitDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "DEBIT");
         Double savingDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "SAVING");
 
-        /**
-         * Проверяем условия для рекомендации
-         */
+
         if ((debitDeposits == null || debitDeposits < 50000) &&
                 (savingDeposits == null || savingDeposits < 50000)) {
             return Optional.empty();
         }
 
-        /**
-         * Проверяем условие для рекомендации
-         */
         Double debitWithdrawals = recommendationsRepository.getTotalWithdrawalsByProductType(userId, "DEBIT");
         if (debitDeposits == null || debitWithdrawals == null || debitDeposits <= debitWithdrawals) {
             return Optional.empty();
