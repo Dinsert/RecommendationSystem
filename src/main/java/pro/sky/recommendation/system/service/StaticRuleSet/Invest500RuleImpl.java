@@ -20,10 +20,6 @@ public class Invest500RuleImpl implements RecommendationRuleSet {
 
     private final RecommendationsRepository recommendationsRepository;
 
-    /**
-     * Конструктор для внедрения зависимостей.
-     * @param recommendationsRepository
-     */
     public Invest500RuleImpl(RecommendationsRepository recommendationsRepository) {
         this.recommendationsRepository = recommendationsRepository;
     }
@@ -32,7 +28,7 @@ public class Invest500RuleImpl implements RecommendationRuleSet {
      *
      * @param userId идентификатор пользователя
      * проверяем условия правила и если они выполнены наличия DEBIT, возвращаем рекомендацию
-     * @return
+     * @return Optional со статической рекомендацией или пустой Optional
      */
     @Override
     public Optional<RecommendationDTO> checkRecommendation(UUID userId) {
@@ -41,17 +37,10 @@ public class Invest500RuleImpl implements RecommendationRuleSet {
             return Optional.empty();
         }
 
-        /**
-         * Проверяем отсутствие INVEST продуктов
-         */
-
         if (recommendationsRepository.hasProductType(userId, "INVEST")) {
             return Optional.empty();
         }
 
-        /**
-         * Проверяем суммарные пополнения SAVING > 1000
-         */
         Double savingDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "SAVING");
         if (savingDeposits == null || savingDeposits <= 1000) {
             return Optional.empty();

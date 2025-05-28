@@ -9,10 +9,10 @@ import pro.sky.recommendation.system.DTO.UserInfo;
 import pro.sky.recommendation.system.exception.UserNotFoundException;
 import pro.sky.recommendation.system.repository.RecommendationsRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Сервис для работы с системой рекомендаций.
@@ -29,16 +29,24 @@ public class RecommendationService {
      * Репозиторий для доступа к данным рекомендаций.
      */
     private final RecommendationsRepository recommendationsRepository;
+    /**
+     * Сервис динамических правил.
+     */
+    private final DynamicRuleService dynamicRuleService;
 
     /**
      * Конструктор для установки экземпляров репозитория и набора правил.
      *
      * @param recommendationRules       коллекция правил для вычисления рекомендаций
      * @param recommendationsRepository репозиторий для работы с базой данных рекомендаций
+     * @param dynamicRuleService сервис динамических правил
      */
-    public RecommendationService(List<RecommendationRuleSet> recommendationRules, RecommendationsRepository recommendationsRepository) {
+    public RecommendationService(List<RecommendationRuleSet> recommendationRules,
+                                 RecommendationsRepository recommendationsRepository,
+                                 DynamicRuleService dynamicRuleService) {
         this.recommendationRules = recommendationRules;
         this.recommendationsRepository = recommendationsRepository;
+        this.dynamicRuleService = dynamicRuleService;
     }
 
     /**
@@ -50,13 +58,18 @@ public class RecommendationService {
      * @return объект с результатом проверки правил и списком рекомендаций
      */
     public RecommendationResponse getRecommendationsForUser(UUID userId) {
-        List<RecommendationDTO> recommendations = recommendationRules.stream()
+        List<RecommendationDTO> staticRecommendations = recommendationRules.stream()
                 .map(rule -> rule.checkRecommendation(userId))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .collect(Collectors.toList());
+                .toList();
+        List<RecommendationDTO> dynamicRecommendations = dynamicRuleService.findAllDynamicRecommendationForUser(userId);
 
-        return new RecommendationResponse(userId, recommendations);
+        List<RecommendationDTO> allRecommendations = new ArrayList<>();
+        allRecommendations.addAll(dynamicRecommendations);
+        allRecommendations.addAll(staticRecommendations);
+
+        return new RecommendationResponse(userId, allRecommendations);
     }
 
     /**
@@ -74,34 +87,23 @@ public class RecommendationService {
         if (username == null || username.isBlank()) {
             throw new UserNotFoundException("Username cannot be empty");
         }
-        /** Получаем данные из репозитория
-         */
         List<Object[]> userData = recommendationsRepository.getRecommendationsByUsername(username.trim());
 
-        /** Проверяем, что данные были получены
-         */
         if (userData == null || userData.isEmpty()) {
             throw new UserNotFoundException("User with username " + username + " not found");
         }
 
-        /** Проверяем количество пользователей с таким именем
-         */
         if (userData.size() > 1) {
             throw new UserNotFoundException("Multiple users found with username " + username);
         }
-        /** Извлекаем данные из массива
-         */
+
         Object[] row = userData.get(0);
         UUID userId = UUID.fromString((String) row[0]);
         String firstName = (String) row[1];
         String lastName = (String) row[2];
 
-        /** Получаем рекомендации для пользователя
-         */
         List<RecommendationDTO> recommendations = getRecommendationsForUser(userId).getRecommendations();
 
-        /** Создаём объект с полной информацией о пользователе
-         */
         return new UserInfo(userId, firstName, lastName, recommendations);
     }
 }

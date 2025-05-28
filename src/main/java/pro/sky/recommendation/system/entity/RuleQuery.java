@@ -1,6 +1,7 @@
 package pro.sky.recommendation.system.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +18,8 @@ public class RuleQuery {
      * Уникальный идентификатор запроса, генерируемый автоматически при сохранении в базу данных.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     /**

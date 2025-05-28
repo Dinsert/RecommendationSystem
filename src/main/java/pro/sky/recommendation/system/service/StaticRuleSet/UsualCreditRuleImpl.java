@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * Простой кредит
  * Пользователь не использует продукты с типом CREDIT.
- * cумма пополнений по всем продуктам типа DEBIT больше, чем сумма трат по всем продуктам типа DEBIT.
+ * Сумма пополнений по всем продуктам типа DEBIT больше, чем сумма трат по всем продуктам типа DEBIT.
  * Сумма трат по всем продуктам типа DEBIT больше, чем 100 000 ₽.
  */
 
@@ -28,7 +28,7 @@ public class UsualCreditRuleImpl implements RecommendationRuleSet {
      * Проверяем отсутствие CREDIT продуктов
      *
      * @param userId идентификатор пользователя
-     * @return
+     * @return Optional со статической рекомендацией или пустой Optional
      */
     @Override
     public Optional<RecommendationDTO> checkRecommendation(UUID userId) {
@@ -36,22 +36,13 @@ public class UsualCreditRuleImpl implements RecommendationRuleSet {
             return Optional.empty();
         }
 
-        /**
-         * Получаем суммы по DEBIT продуктам
-         */
         Double debitDeposits = recommendationsRepository.getTotalDepositsByProductType(userId, "DEBIT");
         Double debitWithdrawals = recommendationsRepository.getTotalWithdrawalsByProductType(userId, "DEBIT");
 
-        /**
-         * Проверяем DEBIT deposits > DEBIT withdrawals
-         */
         if (debitDeposits == null || debitWithdrawals == null || debitDeposits <= debitWithdrawals) {
             return Optional.empty();
         }
 
-        /**
-         * // Проверяем DEBIT withdrawals > 100000
-         */
         if (debitWithdrawals <= 100000) {
             return Optional.empty();
         }
