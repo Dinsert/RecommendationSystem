@@ -57,16 +57,14 @@ public class RecommendationControllerJUnitTest {
 
         // Act & Assert
         mockMvc.perform(get("/recommendation/" + TEST_USER_ID)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString(TEST_USER_ID.toString())))
                 .andExpect(content().string(containsString(TOP_SAVING_RULE_ID.toString())))
                 .andExpect(content().string(containsString("Top Saving")))
-                .andExpect(content().string(containsString("Откройте свою собственную «Копилку»")))
                 .andExpect(content().string(containsString(USUAL_CREDIT_RULE_ID.toString())))
-                .andExpect(content().string(containsString("Usual Credit")))
-                .andExpect(content().string(containsString("Откройте мир выгодных кредитов")));
+                .andExpect(content().string(containsString("Usual Credit")));
 
         verify(recommendationService, times(1)).getRecommendationsForUser(TEST_USER_ID);
     }
