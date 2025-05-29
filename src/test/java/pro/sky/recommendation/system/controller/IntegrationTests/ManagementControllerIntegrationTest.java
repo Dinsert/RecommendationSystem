@@ -1,4 +1,4 @@
-package pro.sky.recommendation.system.controller;
+package pro.sky.recommendation.system.controller.IntegrationTests;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
