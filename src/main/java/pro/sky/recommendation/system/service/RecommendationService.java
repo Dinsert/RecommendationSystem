@@ -3,9 +3,9 @@ package pro.sky.recommendation.system.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pro.sky.recommendation.system.DTO.RecommendationDTO;
-import pro.sky.recommendation.system.DTO.RecommendationResponse;
-import pro.sky.recommendation.system.DTO.UserInfo;
+import pro.sky.recommendation.system.dto.RecommendationDTO;
+import pro.sky.recommendation.system.dto.RecommendationResponse;
+import pro.sky.recommendation.system.dto.UserInfo;
 import pro.sky.recommendation.system.exception.UserNotFoundException;
 import pro.sky.recommendation.system.repository.RecommendationsRepository;
 

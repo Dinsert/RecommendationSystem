@@ -6,8 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import pro.sky.recommendation.system.controller.DynamicRuleController;
 import pro.sky.recommendation.system.entity.DynamicRule;
 import pro.sky.recommendation.system.service.DynamicRuleService;
@@ -47,12 +45,11 @@ class DynamicRuleControllerJUnitTest {
         when(dynamicRuleService.createRule(any(DynamicRule.class))).thenReturn(testRule);
 
         // Act
-        ResponseEntity<DynamicRule> response = dynamicRuleController.createRule(testRule);
+        DynamicRule response = dynamicRuleController.createRule(testRule);
 
         // Assert
         assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(testRule, response.getBody());
+        assertEquals(testRule, response);
         verify(dynamicRuleService, times(1)).createRule(testRule);
     }
 
@@ -63,14 +60,13 @@ class DynamicRuleControllerJUnitTest {
         when(dynamicRuleService.getAllRules()).thenReturn(rules);
 
         // Act
-        ResponseEntity<Map<String, List<DynamicRule>>> response = dynamicRuleController.getAllRules();
+        Map<String, List<DynamicRule>> response = dynamicRuleController.getAllRules();
 
         // Assert
         assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertEquals(1, response.getBody().get("data").size());
-        assertEquals(testRule, response.getBody().get("data").get(0));
+        assertNotNull(response);
+        assertEquals(1, response.get("data").size());
+        assertEquals(testRule, response.get("data").get(0));
         verify(dynamicRuleService, times(1)).getAllRules();
     }
 
@@ -80,11 +76,9 @@ class DynamicRuleControllerJUnitTest {
         doNothing().when(dynamicRuleService).deleteRule(testRuleId);
 
         // Act
-        ResponseEntity<Void> response = dynamicRuleController.deleteRule(testRuleId);
+        dynamicRuleController.deleteRule(testRuleId);
 
         // Assert
-        assertNotNull(response);
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(dynamicRuleService, times(1)).deleteRule(testRuleId);
     }
 
