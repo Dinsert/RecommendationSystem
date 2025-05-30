@@ -1,4 +1,4 @@
-package pro.sky.recommendation.system.DTO;
+package pro.sky.recommendation.system.dto;
 
 import java.util.List;
 import java.util.UUID;

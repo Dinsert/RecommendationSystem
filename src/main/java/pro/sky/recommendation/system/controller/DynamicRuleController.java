@@ -1,7 +1,7 @@
 package pro.sky.recommendation.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.recommendation.system.entity.DynamicRule;
 import pro.sky.recommendation.system.service.DynamicRuleService;
@@ -33,9 +33,8 @@ public class DynamicRuleController {
      * @return созданный объект правила с HTTP-статусом OK
      */
     @PostMapping("/createRule")
-    public ResponseEntity<DynamicRule> createRule(@RequestBody DynamicRule rule) {
-        DynamicRule createdRule = dynamicRuleService.createRule(rule);
-        return ResponseEntity.ok(createdRule);
+    public DynamicRule createRule(@RequestBody DynamicRule rule) {
+        return dynamicRuleService.createRule(rule);
     }
 
     /**
@@ -44,21 +43,20 @@ public class DynamicRuleController {
      * @return список всех правил, упакованный в карту с ключом "data" и HTTP-статус OK
      */
     @GetMapping("/getAllRules")
-    public ResponseEntity<Map<String, List<DynamicRule>>> getAllRules() {
-        List<DynamicRule> rules = dynamicRuleService.getAllRules();
-        return ResponseEntity.ok(Map.of("data", rules));
+    public Map<String, List<DynamicRule>> getAllRules() {
+        return Map.of("data", dynamicRuleService.getAllRules());
     }
 
     /**
      * Метод для удаления существующего правила по идентификатору.
      *
-     * @param id уникальный идентификатор удаляемого правила
-     * @return успешный статус HTTP No Content
+     * @param id уникальный идентификатор удаляемого правила.
+     *           Возвращает успешный статус HTTP No Content
      */
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/deleteRule/{id}")
-    public ResponseEntity<Void> deleteRule(@PathVariable UUID id) {
+    public void deleteRule(@PathVariable UUID id) {
         dynamicRuleService.deleteRule(id);
-        return ResponseEntity.noContent().build();
     }
 }
 

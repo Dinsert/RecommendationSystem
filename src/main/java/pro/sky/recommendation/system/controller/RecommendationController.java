@@ -1,11 +1,10 @@
 package pro.sky.recommendation.system.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.recommendation.system.DTO.RecommendationResponse;
+import pro.sky.recommendation.system.dto.RecommendationResponse;
 import pro.sky.recommendation.system.service.RecommendationService;
 
 import java.util.UUID;
@@ -40,8 +39,7 @@ public class RecommendationController {
      * @response 404 Пользователь не найден
      */
     @GetMapping("/{userId}")
-    public ResponseEntity<RecommendationResponse> getRecommendations(@PathVariable UUID userId) {
-        RecommendationResponse response = recommendationService.getRecommendationsForUser(userId);
-        return ResponseEntity.ok(response);
+    public RecommendationResponse getRecommendations(@PathVariable UUID userId) {
+        return recommendationService.getRecommendationsForUser(userId);
     }
 }

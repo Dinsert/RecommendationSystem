@@ -8,8 +8,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import pro.sky.recommendation.system.DTO.RecommendationDTO;
-import pro.sky.recommendation.system.DTO.UserInfo;
+import pro.sky.recommendation.system.dto.RecommendationDTO;
+import pro.sky.recommendation.system.dto.UserInfo;
 import pro.sky.recommendation.system.exception.UserNotFoundException;
 import pro.sky.recommendation.system.service.RecommendationService;
 

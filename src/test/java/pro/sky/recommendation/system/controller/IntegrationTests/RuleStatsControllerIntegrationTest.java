@@ -10,7 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import pro.sky.recommendation.system.DTO.RecommendationResponse;
+import pro.sky.recommendation.system.dto.RecommendationResponse;
 
 import java.util.List;
 import java.util.Map;
