@@ -3,7 +3,7 @@ package pro.sky.recommendation.system.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pro.sky.recommendation.system.DTO.RecommendationDTO;
+import pro.sky.recommendation.system.dto.RecommendationDTO;
 import pro.sky.recommendation.system.entity.DynamicRule;
 import pro.sky.recommendation.system.entity.RuleQuery;
 import pro.sky.recommendation.system.entity.RuleStats;

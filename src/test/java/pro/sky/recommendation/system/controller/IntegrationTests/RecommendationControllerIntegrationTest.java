@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import pro.sky.recommendation.system.DTO.RecommendationResponse;
+import pro.sky.recommendation.system.dto.RecommendationResponse;
 
 import java.util.UUID;
 
